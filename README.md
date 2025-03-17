@@ -160,7 +160,7 @@ I would like to thank everyone who contributed to the open-source technologies u
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## ❓ FAQ (OPTIONAL) <a name="faq"></a>
+## ❓ FAQ <a name="faq"></a>
 
 - **Can I use this project for commercial purposes?**
 
