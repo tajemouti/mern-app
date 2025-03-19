@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const cors = require('cors');
 const User = require('./models/User');
 
 const mongoURI = 'mongodb://localhost:27017/mernDB';
@@ -7,6 +8,7 @@ const mongoURI = 'mongodb://localhost:27017/mernDB';
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 mongoose
   .connect(mongoURI)
