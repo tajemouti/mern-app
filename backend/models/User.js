@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  name: { String, required: true },
-  age: { Number, required: true },
-  role: { String, required: true },
+  name: { type: String, required: true },
+  age: { type: Number, required: true },
+  role: { type: String, required: true },
   email: {
-    String,
+    type: String,
     required: true,
     unique: true,
     watch: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address'],
