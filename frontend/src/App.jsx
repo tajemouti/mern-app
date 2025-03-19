@@ -42,6 +42,19 @@ function App() {
     }
   };
 
+  const updateUser = async () => {
+    const userData = { name, age: Number(age), role, email };
+    try {
+      await fetch(`${url}/${editedUser._id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      });
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
+  };
+
   const resetInputFields = () => {
     setName('');
     setAge('');
