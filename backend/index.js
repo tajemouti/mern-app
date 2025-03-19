@@ -36,4 +36,14 @@ app.post('/users', async (req, res) => {
   }
 });
 
+// Update user
+app.put('users/:id', async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(400).json({ error: 'Bad request' });
+  }
+});
+
 app.listen(3000);
