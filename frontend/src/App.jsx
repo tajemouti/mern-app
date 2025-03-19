@@ -41,10 +41,15 @@ function App() {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    createUser();
+  };
+
   return (
     <>
       <h1>MERN USER MANAGEMENT</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Name"
