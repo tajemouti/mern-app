@@ -68,6 +68,14 @@ function App() {
     resetInputFields();
   };
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    updateUser();
+    setEditedUser(null);
+    fetchUsers();
+    resetInputFields();
+  };
+
   return (
     <>
       <h1>MERN USER MANAGEMENT</h1>
