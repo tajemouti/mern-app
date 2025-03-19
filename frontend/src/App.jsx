@@ -5,6 +5,10 @@ function App() {
   const url = 'http://localhost:3000/users';
 
   const [users, setUsers] = useState([]);
+  const [name, setName] = useState('');
+  const [age, setAge] = useState();
+  const [role, setRole] = useState('');
+  const [email, setEmail] = useState('');
 
   const fetchUsers = async () => {
     try {
@@ -19,6 +23,23 @@ function App() {
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  const createUser = async () => {
+    const userData = {
+      name, age: Number(age), role, email,
+    };
+
+    try {
+      await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      });
+      fetchUsers();
+    } catch (error) {
+      console.error('Error adding user:', error);
+    }
+  };
 
   return (
     <>
