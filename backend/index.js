@@ -4,14 +4,14 @@ const User = require('./models/User');
 
 const mongoURI = 'mongodb://localhost:27017/mernDB';
 
+const app = express();
+
+app.use(express.json());
+
 mongoose
   .connect(mongoURI)
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => console.error('MongoDB connection error:', err));
-
-const app = express();
-
-app.use(express.json());
 
 // Get users
 app.get('/users', async (req, res) => {
@@ -33,3 +33,5 @@ app.post('/users', async (req, res) => {
     res.status(400).json({ error: 'Bad request' });
   }
 });
+
+app.listen(3000);
