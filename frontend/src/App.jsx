@@ -91,7 +91,7 @@ function App() {
   return (
     <>
       <h1>MERN USER MANAGEMENT</h1>
-      <form onSubmit={handleCreate}>
+      <form onSubmit={editedUser ? handleUpdate : handleCreate}>
         <input
           type="text"
           placeholder="Name"
@@ -123,7 +123,7 @@ function App() {
         <button
           type="submit"
         >
-          Add User
+          {editedUser ? 'Update User' : 'Add User'}
         </button>
       </form>
       <h2>Uers List</h2>
@@ -142,6 +142,12 @@ function App() {
               {' '}
               {user.email}
             </span>
+            <button
+              type="button"
+              onClick={() => handleEdit(user)}
+            >
+              Edit
+            </button>
           </li>
         ))}
       </ul>
