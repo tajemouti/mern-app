@@ -9,6 +9,7 @@ function App() {
   const [age, setAge] = useState();
   const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
+  const [editedUser, setEditedUser] = useState(null);
 
   const fetchUsers = async () => {
     try {
@@ -48,7 +49,7 @@ function App() {
     setEmail('');
   };
 
-  const handleSubmit = async (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
     createUser();
     resetInputFields();
@@ -57,7 +58,7 @@ function App() {
   return (
     <>
       <h1>MERN USER MANAGEMENT</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleCreate}>
         <input
           type="text"
           placeholder="Name"
