@@ -41,9 +41,17 @@ function App() {
     }
   };
 
+  const resetInputFields = () => {
+    setName('');
+    setAge('');
+    setRole('');
+    setEmail('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     createUser();
+    resetInputFields();
   };
 
   return (
