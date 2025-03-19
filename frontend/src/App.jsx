@@ -55,6 +55,13 @@ function App() {
     }
   };
 
+  const setInputfields = (user) => {
+    setName(user.name);
+    setAge(user.age);
+    setRole(user.role);
+    setEmail(user.email);
+  };
+
   const resetInputFields = () => {
     setName('');
     setAge('');
@@ -74,6 +81,11 @@ function App() {
     setEditedUser(null);
     fetchUsers();
     resetInputFields();
+  };
+
+  const handleEdit = (user) => {
+    setEditedUser(user);
+    setInputfields(user);
   };
 
   return (
