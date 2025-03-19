@@ -43,7 +43,43 @@ function App() {
 
   return (
     <>
-      <h1>Uers List</h1>
+      <h1>MERN USER MANAGEMENT</h1>
+      <form>
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          placeholder="Age"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          placeholder="E-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <button
+          type="submit"
+        >
+          Add User
+        </button>
+      </form>
+      <h2>Uers List</h2>
       <ul>
         {users.map((user) => (
           <li key={user._id}>
