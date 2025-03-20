@@ -52,6 +52,7 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
       });
+      fetchUsers();
     } catch (error) {
       console.error('Error updating user:', error);
     }
@@ -81,13 +82,23 @@ function App() {
     e.preventDefault();
     updateUser();
     setEditedUser(null);
-    fetchUsers();
     resetInputFields();
   };
 
   const handleEdit = (user) => {
     setEditedUser(user);
     setInputfields(user);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`${url}/${id}`, {
+        method: 'DELETE',
+      });
+      fetchUsers();
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
   };
 
   return (
@@ -149,6 +160,12 @@ function App() {
               onClick={() => handleEdit(user)}
             >
               Edit
+            </button>
+            <button
+              type="button"
+              onClick={() => handleDelete(user._id)}
+            >
+              Delete
             </button>
           </li>
         ))}
