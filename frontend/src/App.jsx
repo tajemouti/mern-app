@@ -43,7 +43,9 @@ function App() {
   };
 
   const updateUser = async () => {
-    const userData = { name, age: Number(age), role, email };
+    const userData = {
+      name, age: Number(age), role, email,
+    };
     try {
       await fetch(`${url}/${editedUser._id}`, {
         method: 'PUT',

@@ -46,4 +46,14 @@ app.put('users/:id', async (req, res) => {
   }
 });
 
+// Delete user
+app.delete('users/:id', async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(204).end();
+  } catch (err) {
+    res.status(400).json({ error: 'Bad request' });
+  }
+});
+
 app.listen(3000);
