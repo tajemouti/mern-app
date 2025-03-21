@@ -37,7 +37,7 @@ app.post('/users', async (req, res) => {
 });
 
 // Update user
-app.put('users/:id', async (req, res) => {
+app.put('/users/:id', async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updatedUser);
@@ -47,7 +47,7 @@ app.put('users/:id', async (req, res) => {
 });
 
 // Delete user
-app.delete('users/:id', async (req, res) => {
+app.delete('/users/:id', async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(204).end();

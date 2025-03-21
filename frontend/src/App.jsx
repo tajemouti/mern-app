@@ -58,6 +58,17 @@ function App() {
     }
   };
 
+  const deleteUser = async (id) => {
+    try {
+      await fetch(`${url}/${id}`, {
+        method: 'DELETE',
+      });
+      fetchUsers();
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
   const setInputfields = (user) => {
     setName(user.name);
     setAge(user.age);
@@ -72,13 +83,13 @@ function App() {
     setEmail('');
   };
 
-  const handleCreate = async (e) => {
+  const handleCreate = (e) => {
     e.preventDefault();
     createUser();
     resetInputFields();
   };
 
-  const handleUpdate = async (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
     updateUser();
     setEditedUser(null);
@@ -88,17 +99,6 @@ function App() {
   const handleEdit = (user) => {
     setEditedUser(user);
     setInputfields(user);
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      await fetch(`${url}/${id}`, {
-        method: 'DELETE',
-      });
-      fetchUsers();
-    } catch (error) {
-      console.error('Error deleting user:', error);
-    }
   };
 
   return (
@@ -163,7 +163,7 @@ function App() {
             </button>
             <button
               type="button"
-              onClick={() => handleDelete(user._id)}
+              onClick={() => deleteUser(user._id)}
             >
               Delete
             </button>
