@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     watch: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address'],
   },
+  password: { type: String, required: true },
 });
 
 const User = mongoose.model('User', UserSchema);
