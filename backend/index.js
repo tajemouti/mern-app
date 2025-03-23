@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 const User = require('./models/User');
 
 dotenv.config();
 
-const { mongoURI } = process.env;
+const { JWT_SECRET, mongoURI } = process.env;
 
 const app = express();
 
@@ -36,6 +38,25 @@ app.post('/signup', async (req, res) => {
     await newUser.save();
 
     return res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// User Signin
+app.post('/signin', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ error: 'Invalid email or password' });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ error: 'Invalid email or password' });
+
+    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+
+    return res.json({ token });
   } catch (err) {
     return res.status(500).json({ error: 'Internal server error' });
   }
