@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const User = require('./models/User');
 
-const mongoURI = 'mongodb://localhost:27017/mernDB';
+dotenv.config();
+
+const { mongoURI } = process.env;
 
 const app = express();
 
