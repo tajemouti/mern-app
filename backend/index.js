@@ -15,6 +15,29 @@ mongoose
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
+// User Signup
+app.post('/signup', async (req, res) => {
+  try {
+    const {
+      name, age, role, email, password,
+    } = req.body;
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already in use' });
+    }
+
+    const newUser = new User({
+      name, age, role, email, password,
+    });
+    await newUser.save();
+
+    return res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Get users
 app.get('/users', async (req, res) => {
   try {
