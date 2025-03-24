@@ -100,10 +100,37 @@ app.post('/users', auth, isAdmin, async (req, res) => {
 // Update user
 app.put('/users/:id', auth, async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(updatedUser);
+    if (req.user.userId !== req.params.id && req.user.role !== 'admin') {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+
+    const { email, role, ...updateData } = req.body;
+
+    if (role && req.user.role !== 'admin') {
+      return res.status(403).json({ error: 'Unauthorized to change role' });
+    }
+
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (email) {
+      const existingUser = await User.findOne({ email });
+      if (existingUser && existingUser._id.toString() !== req.params.id) {
+        return res.status(400).json({ error: 'Email already in use' });
+      }
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      { ...updateData, ...(email && { email }), ...(role && { role }) },
+      { new: true },
+    );
+
+    return res.json(updatedUser);
   } catch (err) {
-    res.status(400).json({ error: 'Bad request' });
+    return res.status(400).json({ error: 'Bad request' });
   }
 });
 
