@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 const User = require('./models/User');
+const auth = require('./middleware/auth');
 
 dotenv.config();
 
@@ -63,7 +64,7 @@ app.post('/signin', async (req, res) => {
 });
 
 // Get users
-app.get('/users', async (req, res) => {
+app.get('/users', auth, async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -73,7 +74,7 @@ app.get('/users', async (req, res) => {
 });
 
 // Create new user
-app.post('/users', async (req, res) => {
+app.post('/users', auth, async (req, res) => {
   try {
     const newUser = new User(req.body);
     await newUser.save();
@@ -84,7 +85,7 @@ app.post('/users', async (req, res) => {
 });
 
 // Update user
-app.put('/users/:id', async (req, res) => {
+app.put('/users/:id', auth, async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updatedUser);
@@ -94,7 +95,7 @@ app.put('/users/:id', async (req, res) => {
 });
 
 // Delete user
-app.delete('/users/:id', async (req, res) => {
+app.delete('/users/:id', auth, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(204).end();
