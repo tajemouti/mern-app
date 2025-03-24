@@ -77,11 +77,23 @@ app.get('/users', auth, async (req, res) => {
 // Create new user
 app.post('/users', auth, isAdmin, async (req, res) => {
   try {
-    const newUser = new User(req.body);
+    const {
+      name, age, role, email, password,
+    } = req.body;
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already in use' });
+    }
+
+    const newUser = new User({
+      name, age, role, email, password,
+    });
+
     await newUser.save();
-    res.status(201).json(newUser);
+    return res.status(201).json(newUser);
   } catch (err) {
-    res.status(400).json({ error: 'Bad request' });
+    return res.status(400).json({ error: 'Bad request' });
   }
 });
 
