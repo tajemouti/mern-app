@@ -10,7 +10,7 @@ const isAdmin = require('./middleware/isAdmin');
 
 dotenv.config();
 
-const { JWT_SECRET, mongoURI } = process.env;
+const { JWT_SECRET, mongoURI, PORT } = process.env;
 
 const app = express();
 
@@ -137,11 +137,19 @@ app.put('/users/:id', auth, async (req, res) => {
 // Delete user
 app.delete('/users/:id', auth, async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.params.id);
-    res.status(204).end();
+    if (req.user.userId !== req.params.id && req.user.role !== 'admin') {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    return res.status(200).json({ message: 'User deleted successfully' });
   } catch (err) {
-    res.status(400).json({ error: 'Bad request' });
+    return res.status(400).json({ error: 'Bad request' });
   }
 });
 
-app.listen(3000);
+app.listen(PORT);
