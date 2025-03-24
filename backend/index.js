@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 const User = require('./models/User');
 const auth = require('./middleware/auth');
+const isAdmin = require('./middleware/isAdmin');
 
 dotenv.config();
 
@@ -74,7 +75,7 @@ app.get('/users', auth, async (req, res) => {
 });
 
 // Create new user
-app.post('/users', auth, async (req, res) => {
+app.post('/users', auth, isAdmin, async (req, res) => {
   try {
     const newUser = new User(req.body);
     await newUser.save();
