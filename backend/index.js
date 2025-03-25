@@ -26,8 +26,9 @@ mongoose
 app.post('/signup', async (req, res) => {
   try {
     const {
-      name, age, role, email, password,
+      name, age, email, password,
     } = req.body;
+    const role = 'user';
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
