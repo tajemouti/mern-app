@@ -21,7 +21,7 @@ function Signup() {
       });
 
       if (response.ok) {
-        navigate('/signin');
+        navigate('/');
       }
     } catch (error) {
       console.error('Error:', error);
