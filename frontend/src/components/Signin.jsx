@@ -20,6 +20,7 @@ function Signin() {
 
       const data = await response.json();
       if (response.ok) {
+        localStorage.setItem('token', data.token);
         dispatch(signIn(data.token));
         navigate('/dashboard');
       }
