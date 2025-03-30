@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react';
 
 const UserManagement = () => {
+  const token = localStorage.getItem('token');
   const url = 'http://localhost:3000/users';
 
   const [users, setUsers] = useState([]);
   const [name, setName] = useState('');
   const [age, setAge] = useState();
-  const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
   const [editedUser, setEditedUser] = useState(null);
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       setUsers(data);
     } catch (error) {
@@ -26,7 +31,7 @@ const UserManagement = () => {
 
   const createUser = async () => {
     const userData = {
-      name, age: Number(age), role, email,
+      name, age: Number(age), email,
     };
 
     try {
@@ -43,7 +48,7 @@ const UserManagement = () => {
 
   const updateUser = async () => {
     const userData = {
-      name, age: Number(age), role, email,
+      name, age: Number(age), email,
     };
     try {
       await fetch(`${url}/${editedUser._id}`, {
@@ -71,14 +76,12 @@ const UserManagement = () => {
   const setInputfields = (user) => {
     setName(user.name);
     setAge(user.age);
-    setRole(user.role);
     setEmail(user.email);
   };
 
   const resetInputFields = () => {
     setName('');
     setAge('');
-    setRole('');
     setEmail('');
   };
 
@@ -116,13 +119,6 @@ const UserManagement = () => {
           placeholder="Age"
           value={age}
           onChange={(e) => setAge(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Role"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
           required
         />
         <input
