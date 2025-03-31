@@ -40,7 +40,13 @@ app.post('/signup', async (req, res) => {
     });
     await newUser.save();
 
-    return res.status(201).json({ message: 'User registered successfully' });
+    const token = jwt.sign({ userId: newUser._id, role: newUser.role }, JWT_SECRET, { expiresIn: '1h' });
+
+    return res.status(201).json({
+      message: 'User registered successfully',
+      token,
+      user: { name: newUser.name, role: newUser.role },
+    });
   } catch (err) {
     return res.status(500).json({ error: 'Internal server error' });
   }
