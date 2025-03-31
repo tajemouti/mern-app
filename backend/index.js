@@ -59,7 +59,7 @@ app.post('/signin', async (req, res) => {
 
     const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
 
-    return res.json({ token });
+    return res.json({ token, user: { name: user.name, role: user.role, email: user.email } });
   } catch (err) {
     return res.status(500).json({ error: 'Internal server error' });
   }
