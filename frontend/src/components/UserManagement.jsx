@@ -37,7 +37,10 @@ const UserManagement = () => {
     try {
       await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(userData),
       });
       fetchUsers();
@@ -53,7 +56,10 @@ const UserManagement = () => {
     try {
       await fetch(`${url}/${editedUser._id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(userData),
       });
       fetchUsers();
@@ -66,6 +72,9 @@ const UserManagement = () => {
     try {
       await fetch(`${url}/${id}`, {
         method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       fetchUsers();
     } catch (error) {
