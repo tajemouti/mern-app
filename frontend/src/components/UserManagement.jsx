@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const UserManagement = () => {
-  const token = localStorage.getItem('token');
+  const token = useSelector((state) => state.auth.token);
+  const loggedInUser = useSelector((state) => state.auth.user);
   const url = 'http://localhost:3000/users';
 
   const [users, setUsers] = useState([]);
@@ -115,13 +117,16 @@ const UserManagement = () => {
   return (
     <>
       <h1>MERN USER MANAGEMENT</h1>
-      <form onSubmit={editedUser ? handleUpdate : handleCreate}>
+      <form
+        onSubmit={editedUser ? handleUpdate : handleCreate}
+      >
         <input
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          disabled={loggedInUser?.role !== 'admin'}
         />
         <input
           type="number"
@@ -129,6 +134,7 @@ const UserManagement = () => {
           value={age}
           onChange={(e) => setAge(e.target.value)}
           required
+          disabled={loggedInUser?.role !== 'admin'}
         />
         <input
           type="email"
@@ -136,9 +142,11 @@ const UserManagement = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          disabled={loggedInUser?.role !== 'admin'}
         />
         <button
           type="submit"
+          disabled={loggedInUser?.role !== 'admin'}
         >
           {editedUser ? 'Update User' : 'Add User'}
         </button>
@@ -162,12 +170,14 @@ const UserManagement = () => {
             <button
               type="button"
               onClick={() => handleEdit(user)}
+              disabled={loggedInUser?.role !== 'admin'}
             >
               Edit
             </button>
             <button
               type="button"
               onClick={() => deleteUser(user._id)}
+              disabled={loggedInUser?.role !== 'admin'}
             >
               Delete
             </button>
