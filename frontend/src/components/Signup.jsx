@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { signIn } from '../redux/authSlice';
 
 function Signup() {
   const [name, setName] = useState('');
   const [age, setAge] = useState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -23,8 +26,10 @@ function Signup() {
         body: JSON.stringify(userData),
       });
 
-      if (response.ok) {
-        navigate('/');
+      const data = await response.json();
+      if (data.token && data.user) {
+        dispatch(signIn({ token: data.token, user: data.user }));
+        navigate('/dashboard');
       }
     } catch (error) {
       console.error('Error:', error);
