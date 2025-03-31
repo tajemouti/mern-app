@@ -19,9 +19,8 @@ function Signin() {
       });
 
       const data = await response.json();
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        dispatch(signIn(data.token));
+      if (data.token && data.user) {
+        dispatch(signIn({ token: data.token, user: data.user }));
         navigate('/dashboard');
       }
     } catch (error) {
