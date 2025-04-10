@@ -45,7 +45,9 @@ app.post('/signup', async (req, res) => {
     return res.status(201).json({
       message: 'User registered successfully',
       token,
-      user: { name: newUser.name, role: newUser.role },
+      user: {
+        _id: newUser._id, name: newUser.name, email: newUser.email, role: newUser.role,
+      },
     });
   } catch (err) {
     return res.status(500).json({ error: 'Internal server error' });
