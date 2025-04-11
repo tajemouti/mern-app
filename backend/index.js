@@ -118,7 +118,7 @@ app.put('/users/:id', auth, async (req, res) => {
       return res.status(403).json({ error: 'Unauthorized' });
     }
 
-    const { email, role, ...updateData } = req.body;
+    const { email, role, password, ...updateData } = req.body;
 
     if (role && req.user.role !== 'admin') {
       return res.status(403).json({ error: 'Unauthorized to change role' });
@@ -136,9 +136,17 @@ app.put('/users/:id', auth, async (req, res) => {
       }
     }
 
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updateData.password = hashedPassword;
+    }
+
+    if (email) updateData.email = email;
+    if (role) updateData.role = role;
+
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
-      { ...updateData, ...(email && { email }), ...(role && { role }) },
+      updateData,
       { new: true },
     );
 
