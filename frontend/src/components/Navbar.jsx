@@ -1,14 +1,15 @@
 import { useSelector } from 'react-redux';
 import LogoutButton from './LogoutButton';
+import '../assets/navbar.css';
 
 function Navbar() {
   const user = useSelector((state) => state.auth.user);
 
   return (
-    <div>
-      <h3>Welcome to Dashboard</h3>
+    <div className="navbar">
+      <h3 className="navbar-title">Welcome to Dashboard</h3>
       {user && (
-        <p>
+        <p className="user-info2">
           Logged in as:
           {' '}
           <strong>{user.name}</strong>
