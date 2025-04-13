@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { signIn } from '../redux/authSlice';
+import '../assets/auth.css';
 
 function Signin() {
   const [email, setEmail] = useState('');
@@ -21,7 +22,7 @@ function Signin() {
       const data = await response.json();
       if (data.token && data.user) {
         dispatch(signIn({ token: data.token, user: data.user }));
-        navigate('/dashboard');
+        navigate('/');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -29,14 +30,15 @@ function Signin() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="auth-container">
+      <form onSubmit={handleSubmit} className="auth-form">
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          className="auth-input"
         />
         <input
           type="password"
@@ -44,15 +46,17 @@ function Signin() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className="auth-input"
         />
-        <button type="submit">Sign In</button>
+        <button type="submit" className="auth-button">Sign In</button>
       </form>
-      <p>
-        Don&apos;t have an account yet? Sign up here
+      <p className="auth-text">
+        Don&apos;t have an account yet? Sign up
         {' '}
-        <Link to="/signup">Sign Up</Link>
+        <Link to="/signup" className="auth-link">here</Link>
       </p>
     </div>
+
   );
 }
 
