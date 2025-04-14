@@ -14,3 +14,26 @@
   font-weight: 600;
   margin: 0;
 }
+
+.user-info2 {
+  margin: 0;
+  font-size: 1rem;
+  color: #d1d5db;
+}
+
+.user-info2 strong {
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .navbar-title,
+  .user-info2 {
+    width: 100%;
+  }
+}
