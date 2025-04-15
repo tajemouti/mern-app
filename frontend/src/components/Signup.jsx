@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { signIn } from '../redux/authSlice';
+import '../assets/auth.css';
 
 function Signup() {
   const [name, setName] = useState('');
@@ -29,7 +30,7 @@ function Signup() {
       const data = await response.json();
       if (data.token && data.user) {
         dispatch(signIn({ token: data.token, user: data.user }));
-        navigate('/dashboard');
+        navigate('/');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -37,14 +38,15 @@ function Signup() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="auth-container">
+      <form onSubmit={handleSubmit} className="auth-form">
         <input
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          className="auth-input"
         />
         <input
           type="number"
@@ -52,6 +54,7 @@ function Signup() {
           value={age}
           onChange={(e) => setAge(e.target.value)}
           required
+          className="auth-input"
         />
         <input
           type="email"
@@ -59,6 +62,7 @@ function Signup() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          className="auth-input"
         />
         <input
           type="password"
@@ -66,13 +70,14 @@ function Signup() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className="auth-input"
         />
-        <button type="submit">Sign Up</button>
+        <button type="submit" className="auth-button">Sign Up</button>
       </form>
-      <p>
-        Already have an account? Sign in here
+      <p className="auth-text">
+        Already have an account? Sign in
         {' '}
-        <Link to="/">Sign In</Link>
+        <Link to="/signin" className="auth-link">here</Link>
       </p>
     </div>
   );
