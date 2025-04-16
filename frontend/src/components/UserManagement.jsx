@@ -122,6 +122,14 @@ const UserManagement = () => {
     return handleUpdate;
   };
 
+  const buttonLabel = () => {
+    if (loggedInUser?.role === 'admin') {
+      return editedUser ? 'Update User' : 'Add User';
+    }
+
+    return 'Update User';
+  };
+
   return (
     <>
       <h1>MERN USER MANAGEMENT</h1>
@@ -154,9 +162,8 @@ const UserManagement = () => {
         />
         <button
           type="submit"
-          disabled={loggedInUser?.role !== 'admin'}
         >
-          {editedUser ? 'Update User' : 'Add User'}
+          {buttonLabel()}
         </button>
       </form>
       <h2>Uers List</h2>
