@@ -114,11 +114,19 @@ const UserManagement = () => {
     setInputfields(user);
   };
 
+  const handleSubmit = () => {
+    if (loggedInUser?.role === 'admin') {
+      return editedUser ? handleUpdate : handleCreate;
+    }
+
+    return handleUpdate;
+  };
+
   return (
     <>
       <h1>MERN USER MANAGEMENT</h1>
       <form
-        onSubmit={editedUser ? handleUpdate : handleCreate}
+        onSubmit={handleSubmit}
       >
         <input
           type="text"
