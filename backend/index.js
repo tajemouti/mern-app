@@ -118,10 +118,14 @@ app.put('/users/:id', auth, async (req, res) => {
       return res.status(403).json({ error: 'Unauthorized' });
     }
 
-    const { email, role, password, ...updateData } = req.body;
+    const {
+      email, password, ...updateData
+    } = req.body;
 
-    if (role && req.user.role !== 'admin') {
-      return res.status(403).json({ error: 'Unauthorized to change role' });
+    if (req.user.role !== 'admin') {
+      delete req.body.role;
+    } else if (req.body.role) {
+      updateData.role = req.body.role;
     }
 
     const user = await User.findById(req.params.id);
@@ -134,15 +138,13 @@ app.put('/users/:id', auth, async (req, res) => {
       if (existingUser && existingUser._id.toString() !== req.params.id) {
         return res.status(400).json({ error: 'Email already in use' });
       }
+      updateData.email = email;
     }
 
-    if (password) {
+    if (password && password.trim() !== '') {
       const hashedPassword = await bcrypt.hash(password, 10);
       updateData.password = hashedPassword;
     }
-
-    if (email) updateData.email = email;
-    if (role) updateData.role = role;
 
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
