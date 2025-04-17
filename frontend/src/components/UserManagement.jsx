@@ -8,9 +8,12 @@ const UserManagement = () => {
 
   const [users, setUsers] = useState([]);
   const [name, setName] = useState('');
-  const [age, setAge] = useState();
+  const [role, setRole] = useState('');
+  const [age, setAge] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [editedUser, setEditedUser] = useState(null);
+
 
   const fetchUsers = async () => {
     try {
@@ -88,12 +91,16 @@ const UserManagement = () => {
     setName(user.name);
     setAge(user.age);
     setEmail(user.email);
+    setRole(user.role);
+    setPassword('');
   };
 
   const resetInputFields = () => {
     setName('');
     setAge('');
     setEmail('');
+    setRole('');
+    setPassword('');
   };
 
   const handleCreate = (e) => {
@@ -159,6 +166,20 @@ const UserManagement = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
           disabled={loggedInUser?.role !== 'admin'}
+        />
+        <input
+          type="text"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          required
         />
         <button
           type="submit"
