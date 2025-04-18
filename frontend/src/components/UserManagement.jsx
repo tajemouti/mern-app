@@ -174,15 +174,19 @@ const UserManagement = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          required
-        >
-          <option value="" disabled selected>Select a role</option>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
+        {loggedInUser?.role === 'admin' ? (
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            required
+          >
+            <option value="" disabled selected>Select a role</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        ) : (
+          <></>
+        )}
         <button
           type="submit"
         >
