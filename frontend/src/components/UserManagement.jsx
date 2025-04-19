@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { signOut } from '../redux/authSlice';
 
 const UserManagement = () => {
   const token = useSelector((state) => state.auth.token);
   const loggedInUser = useSelector((state) => state.auth.user);
   const url = 'http://localhost:3000/users';
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [users, setUsers] = useState([]);
   const [name, setName] = useState('');
