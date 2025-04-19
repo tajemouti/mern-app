@@ -85,7 +85,6 @@ const UserManagement = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      fetchUsers();
     } catch (error) {
       console.error('Error deleting user:', error);
     }
@@ -123,6 +122,20 @@ const UserManagement = () => {
   const handleEdit = (user) => {
     setEditedUser(user);
     setInputfields(user);
+  };
+
+  const handleLogout = () => {
+    dispatch(signOut());
+    navigate('/signin');
+  };
+
+  const handleDelete = async (id) => {
+    await deleteUser(id);
+    if (loggedInUser?._id === id) {
+      handleLogout();
+    } else {
+      fetchUsers();
+    }
   };
 
   const handleSubmit = () => {
@@ -222,7 +235,7 @@ const UserManagement = () => {
             </button>
             <button
               type="button"
-              onClick={() => deleteUser(user._id)}
+              onClick={() => handleDelete(user._id)}
               disabled={loggedInUser?.role !== 'admin'}
             >
               Delete
