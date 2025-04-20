@@ -60,8 +60,16 @@ const UserManagement = () => {
 
   const updateUser = async () => {
     const userData = {
-      name, age: Number(age), email,
+      name,
+      age: Number(age),
+      email,
+      role,
     };
+
+    if (password) {
+      userData.password = password;
+    }
+
     try {
       await fetch(`${url}/${editedUser._id}`, {
         method: 'PUT',
