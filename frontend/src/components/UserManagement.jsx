@@ -18,7 +18,6 @@ const UserManagement = () => {
   const [password, setPassword] = useState('');
   const [editedUser, setEditedUser] = useState(null);
 
-
   const fetchUsers = async () => {
     try {
       const response = await fetch(url, {
@@ -40,7 +39,11 @@ const UserManagement = () => {
 
   const createUser = async () => {
     const userData = {
-      name, age: Number(age), email,
+      name,
+      age: Number(age),
+      email,
+      role,
+      password,
     };
 
     try {
