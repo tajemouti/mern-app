@@ -200,7 +200,7 @@ const UserManagement = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
+          required={!editedUser}
         />
         {loggedInUser?.role === 'admin' ? (
           <select
