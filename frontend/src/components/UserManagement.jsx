@@ -166,95 +166,118 @@ const UserManagement = () => {
   };
 
   return (
-    <>
-      <h1>MERN USER MANAGEMENT</h1>
+    <div className="container">
+      <h1 className="heading">MERN USER MANAGEMENT</h1>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit()}
+        className="form"
       >
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          disabled={loggedInUser?.role !== 'admin'}
-        />
-        <input
-          type="number"
-          placeholder="Age"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          required
-          disabled={loggedInUser?.role !== 'admin'}
-        />
-        <input
-          type="email"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          disabled={loggedInUser?.role !== 'admin'}
-        />
-        <input
-          type="text"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required={!editedUser}
-        />
-        {loggedInUser?.role === 'admin' ? (
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
-          >
-            <option value="" disabled selected>Select a role</option>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
+            className="input"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="number"
+            placeholder="Age"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            required
+            className="input"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="input"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required={!editedUser}
+            className="input"
+          />
+        </div>
+        {loggedInUser?.role === 'admin' ? (
+          <>
+            <div className="form-group">
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+                className="input"
+                >
+                <option value="" disabled selected>Select a role</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          </>
         ) : (
           <></>
         )}
         <button
           type="submit"
+          className="submit-button"
         >
           {buttonLabel()}
         </button>
       </form>
-      <h2>Uers List</h2>
-      <ul>
+
+      <h2 className="subheading">Users List</h2>
+      <ul className="user-list">
         {users.map((user) => (
-          <li key={user._id}>
-            <strong>{user.name}</strong>
-            {' '}
-            <span>
-              {user.role}
+          <li key={user._id} className="user-item">
+            <div>
+              <strong className="user-name">{user.name}</strong>
               {' '}
-              (
-              {user.age}
-              {' years old'}
-              )
-              {' '}
-              {user.email}
-            </span>
-            <button
-              type="button"
-              onClick={() => handleEdit(user)}
-              disabled={loggedInUser?.role !== 'admin'}
-            >
-              Edit
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDelete(user._id)}
-              disabled={loggedInUser?.role !== 'admin'}
-            >
-              Delete
-            </button>
+              <span className="user-info">
+                {user.role}
+                {' '}
+                (
+                {user.age}
+                {' '}
+                years old)
+                {' '}
+                {user.email}
+              </span>
+            </div>
+            <div className="button-group">
+              <button
+                type="button"
+                onClick={() => handleEdit(user)}
+                disabled={loggedInUser?.role !== 'admin' && loggedInUser?.email !== user.email}
+                className="edit-button"
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDelete(user._id)}
+                disabled={loggedInUser?.role !== 'admin' && loggedInUser?.email !== user.email}
+                className="delete-button"
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 
