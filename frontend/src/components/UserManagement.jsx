@@ -35,7 +35,7 @@ const UserManagement = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  });
 
   const createUser = async () => {
     const userData = {
@@ -220,7 +220,7 @@ const UserManagement = () => {
                 onChange={(e) => setRole(e.target.value)}
                 required
                 className="input"
-                >
+              >
                 <option value="" disabled selected>Select a role</option>
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
