@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { signIn } from '../redux/authSlice';
-import '../assets/auth.css';
+import '../assets/css/auth.css';
 
 function Signup() {
   const [name, setName] = useState('');

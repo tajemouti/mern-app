@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import LogoutButton from './LogoutButton';
-import '../assets/navbar.css';
+import '../assets/css/navbar.css';
 
 function Navbar() {
   const user = useSelector((state) => state.auth.user);
