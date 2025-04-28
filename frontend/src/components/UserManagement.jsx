@@ -221,7 +221,7 @@ const UserManagement = () => {
                 required
                 className="input"
               >
-                <option value="" disabled>Select a role</option>
+                <option value="" disabled hidden>Select a role</option>
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
               </select>
