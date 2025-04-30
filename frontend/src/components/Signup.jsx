@@ -6,7 +6,7 @@ import '../assets/css/auth.css';
 
 function Signup() {
   const [name, setName] = useState('');
-  const [age, setAge] = useState();
+  const [age, setAge] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
