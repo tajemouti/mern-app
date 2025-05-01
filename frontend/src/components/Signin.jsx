@@ -56,7 +56,6 @@ function Signin() {
         <Link to="/signup" className="auth-link">here</Link>
       </p>
     </div>
-
   );
 }
 
