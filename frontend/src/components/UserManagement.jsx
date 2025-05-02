@@ -218,7 +218,7 @@ const UserManagement = () => {
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                required
+                required={!editedUser}
                 className="input"
               >
                 <option value="" disabled hidden>Select a role</option>
