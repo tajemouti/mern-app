@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from '../redux/authSlice';
+import '../assets/css/dashboard.css';
 
 const UserManagement = () => {
   const token = useSelector((state) => state.auth.token);
