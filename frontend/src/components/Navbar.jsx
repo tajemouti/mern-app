@@ -7,7 +7,7 @@ function Navbar() {
 
   return (
     <div className="navbar">
-      <h3 className="navbar-title">Welcome to Dashboard</h3>
+      <h3 className="navbar-title">Dashboard</h3>
       {user && (
         <p className="user-info2">
           Logged in as:
