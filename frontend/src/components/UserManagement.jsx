@@ -199,7 +199,7 @@ const UserManagement = () => {
             placeholder="E-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            required={!editedUser}
             className="input"
           />
         </div>
