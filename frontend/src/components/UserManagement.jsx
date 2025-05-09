@@ -189,7 +189,7 @@ const UserManagement = () => {
             placeholder="Age"
             value={age}
             onChange={(e) => setAge(e.target.value)}
-            required
+            required={!editedUser}
             className="input"
           />
         </div>
