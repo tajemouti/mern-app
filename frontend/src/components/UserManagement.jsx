@@ -154,7 +154,6 @@ const UserManagement = () => {
     if (loggedInUser?.role === 'admin') {
       return editedUser ? handleUpdate : handleCreate;
     }
-
     return handleUpdate;
   };
 
@@ -162,7 +161,6 @@ const UserManagement = () => {
     if (loggedInUser?.role === 'admin') {
       return editedUser ? 'Update User' : 'Add User';
     }
-
     return 'Update User';
   };
 
