@@ -31,7 +31,7 @@
 
 # 📚 MERN WebApp <a name="about-project"></a>
 
-**MERN WebApp** is a full-stack web application built using the MERN (MongoDB, Express.js, React.js, Node.js) stack. It provides a robust and scalable foundation for developing modern web applications.
+**MERN WebApp** is a full-stack web application built using the MERN stack. It provides a robust and scalable foundation for developing modern web applications.
 
 ## 🛠 Built With <a name="built-with"></a>
 
