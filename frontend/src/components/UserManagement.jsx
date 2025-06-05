@@ -258,7 +258,7 @@ const UserManagement = () => {
               <button
                 type="button"
                 onClick={() => handleEdit(user)}
-                disabled={loggedInUser?.role !== 'admin' && loggedInUser?.id !== user._id}
+                disabled={loggedInUser?.role !== 'admin' && loggedInUser?._id !== user._id}
                 className="edit-button"
               >
                 Edit
