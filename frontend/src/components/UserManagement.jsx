@@ -266,7 +266,7 @@ const UserManagement = () => {
               <button
                 type="button"
                 onClick={() => handleDelete(user._id)}
-                disabled={loggedInUser?.role !== 'admin' && loggedInUser?.email !== user.email}
+                disabled={loggedInUser?.role !== 'admin' && loggedInUser?._id !== user._id}
                 className="delete-button"
               >
                 Delete
