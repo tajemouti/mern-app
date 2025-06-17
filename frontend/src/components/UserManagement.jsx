@@ -236,7 +236,6 @@ const UserManagement = () => {
           {buttonLabel()}
         </button>
       </form>
-      <h2 className="subheading">Users List</h2>
       <ul className="user-list">
         {users.map((user) => (
           <li key={user._id} className="user-item">
