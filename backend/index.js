@@ -170,7 +170,7 @@ app.delete('/users/:id', auth, async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    return res.status(200).json({ message: 'User deleted successfully' });
+    return res.status(200).json({ message: 'User successfully deleted' });
   } catch (err) {
     return res.status(400).json({ error: 'Bad request' });
   }
