@@ -15,6 +15,7 @@ const { JWT_SECRET, mongoURI, PORT } = process.env;
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 mongoose
   .connect(mongoURI)
